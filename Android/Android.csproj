@@ -3,7 +3,7 @@
     <TargetFramework>net6.0-android</TargetFramework>
     <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
-    <ApplicationId>com.companyname.Android</ApplicationId>
+    <ApplicationId>io.github.paulushcgcj.theoldladies</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <AndroidSdkDirectory>C:\Users\paulu\AppData\Local\Android\Sdk</AndroidSdkDirectory>
