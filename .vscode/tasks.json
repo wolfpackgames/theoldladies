@@ -1,0 +1,65 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build All",
+      "type": "shell",
+      "command": "dotnet build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Publish All",
+      "type": "shell",
+      "command": "dotnet publish",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Build Library",
+      "type": "shell",
+      "command": "dotnet build ./SharedLib/SharedLib.csproj",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Build DesktopGL",
+      "type": "shell",
+      "command": "dotnet build ./DesktopGL/DesktopGL.csproj",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Build Android",
+      "type": "shell",
+      "command": "dotnet build ./Android/Android.csproj",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+  ]
+}
