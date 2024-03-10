@@ -6,6 +6,8 @@
     <ApplicationId>com.companyname.Android</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <AndroidSdkDirectory>C:\Users\paulu\AppData\Local\Android\Sdk</AndroidSdkDirectory>
+    <JavaSdkDirectory>C:\Program Files\Microsoft\jdk-11.0.22.7-hotspot</JavaSdkDirectory>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
