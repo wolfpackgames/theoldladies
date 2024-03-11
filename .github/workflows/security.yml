@@ -19,8 +19,6 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'csharp' ]
-    env:
-      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
