@@ -19,6 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'csharp' ]
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -33,6 +35,10 @@ jobs:
       with:
         dotnet-version: 8.0.x
         cache: true
+        cache-dependency-path: |
+          SharedLib/packages.lock.json
+          DesktopGL/packages.lock.json
+          Android/packages.lock.json
   
     - name: Set up JDK 17
       uses: actions/setup-java@v3
