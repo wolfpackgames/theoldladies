@@ -34,7 +34,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Setup Monogame
-      run: dotnet new --install MonoGame.Templates.CSharp
+      run: dotnet new install MonoGame.Templates.CSharp
       continue-on-error: true
         
     - name: Set up JDK 17
