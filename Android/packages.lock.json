@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0-android34.0": {
+      "Microsoft.NET.ILLink.Tasks": {
+        "type": "Direct",
+        "requested": "[8.0.2, )",
+        "resolved": "8.0.2",
+        "contentHash": "hKTrehpfVzOhAz0mreaTAZgbz0DrMEbWq4n3hAo8Ks6WdxdqQhNPvzOqn9VygKuWf1bmxPdraqzTaXriO/sn0A=="
+      },
+      "MonoGame.Content.Builder.Task": {
+        "type": "Direct",
+        "requested": "[3.8.1.303, )",
+        "resolved": "3.8.1.303",
+        "contentHash": "9Ilzzje62LhWElbPNEl7vh7XsRSbze+lvCJdZtTZUGu48FRgvYN6THURwIB9PN98EI33/Wnf6iuShNUtD7hL4Q=="
+      },
+      "MonoGame.Framework.Android": {
+        "type": "Direct",
+        "requested": "[3.8.1.303, )",
+        "resolved": "3.8.1.303",
+        "contentHash": "ypQAXK3vKo7wiqvlfav0HSShUtUtH8qam3danRg1YkitgSTNwgAQgO7UDUHSKrWQAWgGJCJi7vZ5ngnBVxjBWw=="
+      },
+      "sharedlib": {
+        "type": "Project"
+      }
+    },
+    "net8.0-android34.0/android-arm": {},
+    "net8.0-android34.0/android-arm64": {},
+    "net8.0-android34.0/android-x64": {},
+    "net8.0-android34.0/android-x86": {}
+  }
+}
