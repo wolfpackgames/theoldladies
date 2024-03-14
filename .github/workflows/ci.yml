@@ -50,4 +50,16 @@ jobs:
 
     - name: Build
       run: dotnet build --no-restore -p:AndroidSdkDirectory="${{ env.ANDROID_SDK_ROOT }}" -p:JavaSdkDirectory=" C:\hostedtoolcache\windows\Java_Microsoft_jdk\11.0.19\x64"
+
+    - name: Save android artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: android
+        path: Android/bin/Debug/net6.0-android
+    
+    - name: Save desktopgl artifact windows
+      uses: actions/upload-artifact@v2
+      with:
+        name: desktopgl
+        path: DesktopGL/bin/Debug/net6.0
       
