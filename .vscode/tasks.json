@@ -1,10 +1,16 @@
 {
   "version": "2.0.0",
-  "tasks": [
+  "tasks": [   
     {
       "label": "Build All",
       "type": "shell",
-      "command": "dotnet build",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "--no-restore",
+        "-p:AndroidSdkDirectory=${config:ANDROID_SDK_ROOT}",
+        "-p:JavaSdkDirectory=${config:JAVA_HOME}"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -28,7 +34,12 @@
     {
       "label": "Build Library",
       "type": "shell",
-      "command": "dotnet build ./SharedLib/SharedLib.csproj",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "./Library/Library.csproj",
+        "--no-restore"
+      ],
       "group": {
         "kind": "build",
         "isDefault": false
@@ -40,7 +51,12 @@
     {
       "label": "Build DesktopGL",
       "type": "shell",
-      "command": "dotnet build ./DesktopGL/DesktopGL.csproj",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "./DesktopGL/DesktopGL.csproj",
+        "--no-restore"
+      ],
       "group": {
         "kind": "build",
         "isDefault": false
@@ -52,7 +68,14 @@
     {
       "label": "Build Android",
       "type": "shell",
-      "command": "dotnet build ./Android/Android.csproj",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "./Android/Android.csproj",
+        "--no-restore",
+        "-p:AndroidSdkDirectory=${config:ANDROID_SDK_ROOT}",
+        "-p:JavaSdkDirectory=${config:JAVA_HOME}"
+      ],
       "group": {
         "kind": "build",
         "isDefault": false
