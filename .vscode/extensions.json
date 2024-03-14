@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "pkief.material-icon-theme",
+    "wayou.vscode-todo-highlight",
+    "github.copilot",
+    "github.copilot-chat",
+    "zainchen.json",
+    "ms-dotnettools.csharp",
+    "mangrimen.mgcb-editor"
+  ]
+}

@@ -1,3 +1,3 @@
 ﻿
-using var game = new DesktopGL.Game1();
+using var game = new SharedLib.Game1();
 game.Run();
