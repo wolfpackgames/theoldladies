@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+       {
+           "name": "Run DesktopGL platform",
+           "type": "coreclr",
+           "request": "launch",
+           "preLaunchTask": "Build DesktopGL",
+           "program": "${workspaceFolder}/DesktopGL/bin/Debug/net6.0/DesktopGL.dll",
+           "args": [],
+           "cwd": "${workspaceFolder}",
+           "console": "internalConsole",
+           "stopAtEntry": false
+       }
+   ]
+}

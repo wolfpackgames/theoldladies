@@ -11,6 +11,16 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
     <PackageReference Include="MonoGame.Framework.Android" Version="3.8.1.303" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedLib\**\*.cs">
+      <Link>SharedLib\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="..\SharedLib\**\*.mgcb">
+      <Link>SharedLib\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </MonoGameContentReference>
+  </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
