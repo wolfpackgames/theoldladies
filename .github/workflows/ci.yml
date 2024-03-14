@@ -35,7 +35,7 @@ jobs:
         distribution: 'microsoft'
 
     - name: Java Version
-      run: java -version && echo "JAVA_HOME=${JAVA_HOME}" && echo "PATH=${PATH}"
+      run: java -version && echo "JAVA_HOME=${{ env.JAVA_HOME }}"
     
     - name: Setup Android SDK Tools
       uses: android-actions/setup-android@v3.2.0
@@ -50,5 +50,5 @@ jobs:
         dotnet restore
 
     - name: Build
-      run: dotnet build -p:AndroidSdkDirectory="${{ env.ANDROID_SDK_ROOT }}" -p:JavaSdkDirectory="${{ env.JAVA_HOME }}"
+      run: dotnet build --no-restore -p:AndroidSdkDirectory="${{ env.ANDROID_SDK_ROOT }}" -p:JavaSdkDirectory=" C:\hostedtoolcache\windows\Java_Microsoft_jdk\11.0.19\x64"
       
