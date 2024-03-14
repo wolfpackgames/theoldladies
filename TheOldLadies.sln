@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopGL", "DesktopGL\DesktopGL.csproj", "{8A001598-2185-4766-815F-7606B7F5985B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Android", "Android\Android.csproj", "{71F80AD8-9E44-4DED-860A-E542DB35445D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{8A001598-2185-4766-815F-7606B7F5985B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A001598-2185-4766-815F-7606B7F5985B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A001598-2185-4766-815F-7606B7F5985B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F80AD8-9E44-4DED-860A-E542DB35445D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F80AD8-9E44-4DED-860A-E542DB35445D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F80AD8-9E44-4DED-860A-E542DB35445D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F80AD8-9E44-4DED-860A-E542DB35445D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
