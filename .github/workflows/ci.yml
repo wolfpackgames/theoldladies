@@ -46,7 +46,6 @@ jobs:
     - name: Restore workloads
       run: |
         dotnet workload restore
-        dotnet workload install android wasm-tools-net6
         dotnet restore
 
     - name: Build
