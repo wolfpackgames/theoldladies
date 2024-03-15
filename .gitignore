@@ -689,3 +689,6 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,monodevelop,csharp,android,androidstudio,java,maven,macos,linux,gradle
+
+*.der
+Google.md
