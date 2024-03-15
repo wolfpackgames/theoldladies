@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "tasks": [   
+  "tasks": [
     {
       "label": "Build All",
       "type": "shell",
@@ -18,7 +18,7 @@
       "presentation": {
         "reveal": "always"
       }
-    },    
+    },
     {
       "label": "Build DesktopGL",
       "type": "shell",
@@ -56,55 +56,96 @@
       }
     },
     {
+      "label": "Publish Android",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "-c",
+        "Release",
+        "-r",
+        "android-x64",
+        "-p:AndroidSdkDirectory=${config:ANDROID_SDK_ROOT}",
+        "-p:JavaSdkDirectory=${config:JAVA_HOME}",
+        "${workspaceFolder}/Android/Android.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
       "label": "Publish Windows",
       "type": "shell",
       "command": "dotnet",
       "args": [
-          "publish",
-          "-c",
-          "Release",
-          "-r",
-          "win-x64",
-          "/p:PublishReadyToRun=false",
-          "/p:TieredCompilation=false",
-          "--self-contained",
-          "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
+        "publish",
+        "-c",
+        "Release",
+        "-r",
+        "win-x64",
+        "/p:PublishReadyToRun=false",
+        "/p:TieredCompilation=false",
+        "--self-contained",
+        "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
       ],
       "problemMatcher": "$msCompile"
-  },
-  {
+    },
+    {
       "label": "Publish Linux",
       "type": "shell",
       "command": "dotnet",
       "args": [
-          "publish",
-          "-c",
-          "Release",
-          "-r",
-          "linux-x64",
-          "/p:PublishReadyToRun=false",
-          "/p:TieredCompilation=false",
-          "--self-contained",
-          "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
+        "publish",
+        "-c",
+        "Release",
+        "-r",
+        "linux-x64",
+        "/p:PublishReadyToRun=false",
+        "/p:TieredCompilation=false",
+        "--self-contained",
+        "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
       ],
       "problemMatcher": "$msCompile"
-  },
-  {
+    },
+    {
       "label": "Publish MacOS",
       "type": "shell",
       "command": "dotnet",
       "args": [
-          "publish",
-          "-c",
-          "Release",
-          "-r",
-          "osx-x64",
-          "/p:PublishReadyToRun=false",
-          "/p:TieredCompilation=false",
-          "--self-contained",
-          "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
+        "publish",
+        "-c",
+        "Release",
+        "-r",
+        "osx-x64",
+        "/p:PublishReadyToRun=false",
+        "/p:TieredCompilation=false",
+        "--self-contained",
+        "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
       ],
       "problemMatcher": "$msCompile"
-  },
+    },
+    {
+      "label": "Sign Jar",
+      "type": "shell",
+      "command": "jarsigner",
+      "args": [
+        "-verbose",
+        "-sigalg",
+        "SHA256withRSA",
+        "-digestalg",
+        "SHA-256",
+        "-keystore",
+        ".\\theoldladies-release.keystore",
+        "-signedjar",
+        ".\\Android\\bin\\Release\\net6.0-android\\android-x64\\theoldladies.aab",
+        ".\\Android\\bin\\Release\\net6.0-android\\android-x64\\Android.Android.aab",
+        "theoldladies"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    }
   ]
 }
