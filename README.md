@@ -1,6 +1,6 @@
 # The Old Ladies
 
-![Game Screenshot](screenshot.png)
+![Game Icon](docs/icon.jpeg)
 
 ## Description
 The Old Ladies is a tic-tac-toe game developed using MonoGame. It is a classic game where two players take turns marking X and O on a 3x3 grid. The objective is to get three of your marks in a row, either horizontally, vertically, or diagonally.
