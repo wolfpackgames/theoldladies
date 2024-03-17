@@ -17,7 +17,8 @@
       },
       "presentation": {
         "reveal": "always"
-      }
+      },
+      "dependsOn": "Clean"
     },
     {
       "label": "Build DesktopGL",
@@ -65,11 +66,22 @@
         "Release",
         "-r",
         "android-x64",
+        "--self-contained",
         "-p:AndroidSdkDirectory=${config:ANDROID_SDK_ROOT}",
-        "-p:JavaSdkDirectory=${config:JAVA_HOME}",
+        "-p:JavaSdkDirectory=${config:JAVA_HOME}",        
+        "-p:ApplicationVersion=5",
+        "-p:ApplicationDisplayVersion=1.2.3",
         "${workspaceFolder}/Android/Android.csproj"
       ],
-      "problemMatcher": "$msCompile"
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      },
+      "dependsOn": "Clean"
     },
     {
       "label": "Publish Windows",
@@ -138,6 +150,21 @@
         ".\\Android\\bin\\Release\\net6.0-android\\android-x64\\theoldladies.aab",
         ".\\Android\\bin\\Release\\net6.0-android\\android-x64\\Android.Android.aab",
         "theoldladies"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label":"Clean",
+      "type":"shell",
+      "command":"dotnet",
+      "args":[
+        "clean"
       ],
       "group": {
         "kind": "build",
