@@ -11,6 +11,7 @@ namespace SharedLib
         private SpriteBatch _spriteBatch;
         private InputManager _inputManager;
         private TicTacToe _ticTacToe;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -20,42 +21,25 @@ namespace SharedLib
             _ticTacToe = new();
             _inputManager = new();
             _inputManager.PointSelected += OnPointSelected;
-
-
         }
 
         protected override void Initialize()
         {
             base.Initialize();
-           
+            //2028 - 1014
 
-            float desiredGridHeightPercentage = 0.8f; // 80% for the grid
             float screenHeight = GraphicsDevice.Viewport.Height;
             float screenWidth = GraphicsDevice.Viewport.Width;
-            Console.WriteLine($"Screen Height: {screenHeight}, Screen Width: {screenWidth}");
 
-            // Calculate text bar area
-            float textBarHeight = screenHeight * 0.2f; // 20% for the text bar
-            var textBarArea = new Rectangle(0, (int)(screenHeight - textBarHeight) + 32, GraphicsDevice.Viewport.Width, (int)textBarHeight);
-
-            Console.WriteLine($"Text Bar Area: {textBarArea}");
-
-             var gridSizeH = textBarArea.Y / 3;
-
-            Console.WriteLine($"Grid Size H: {gridSizeH}");
+            float smallerReference = Math.Min(screenHeight, screenWidth);
 
 
-            // Calculate grid scale based on screen height
-            var gridScale = (screenWidth * desiredGridHeightPercentage) / textBarArea.Y;
-            var gridPosition = new Vector2(GraphicsDevice.Viewport.Width / 2 - (textBarArea.Y/2), 0);
-
-            Console.WriteLine($"Grid Scale: {gridScale}, Grid Position: {gridPosition}");
-
-
-
-             _ticTacToe.Initialize(Content,gridPosition,textBarArea.Y/3,textBarArea);
+            Console.WriteLine($"Screen Height: {screenHeight}, Screen Width: {screenWidth}, Bigger Reference: {smallerReference}");
+            Console.WriteLine($"Scale Grid: {smallerReference / (64 * 3)}, Scale Font: {smallerReference / 16}");
+          
+            
+            _ticTacToe.Initialize(Content, (int)smallerReference);
             _inputManager.Initialize();
-
         }
 
         protected override void LoadContent()
@@ -71,8 +55,10 @@ namespace SharedLib
 
         private void OnPointSelected(Point selectedPosition)
         {
-            _ticTacToe.Reset();
-            _ticTacToe.SelectSquare(selectedPosition);            
+            if (!_ticTacToe.GamePlaying)
+                _ticTacToe.Reset();
+            else
+                _ticTacToe.SelectSquare(selectedPosition);
         }
 
         protected override void Draw(GameTime gameTime)

@@ -12,7 +12,7 @@ namespace SharedLib
     private int _charWidth;
     private int _charHeight;
     private char[][] _characters;
-
+    private int _scale;
     /// <summary>
     /// Initializes a new instance of the <see cref="GameFontComponent"/> class.
     /// </summary>
@@ -20,12 +20,13 @@ namespace SharedLib
     /// <param name="charWidth">The width of each character in the font texture.</param>
     /// <param name="charHeight">The height of each character in the font texture.</param>
     /// <param name="characters">The matrix of characters in the font texture.</param>
-    public GameFontComponent(Texture2D fontTexture, int charWidth, int charHeight, char[][] characters)
+    public GameFontComponent(Texture2D fontTexture, int charWidth, int charHeight, char[][] characters, int scale = 1)
     {
-      this._fontTexture = fontTexture;
-      this._charWidth = charWidth;
-      this._charHeight = charHeight;
-      this._characters = characters;
+      _fontTexture = fontTexture;
+      _charWidth = charWidth;
+      _charHeight = charHeight;
+      _characters = characters;
+      _scale = scale;
     }
 
     /// <summary>
@@ -49,9 +50,14 @@ namespace SharedLib
           // Calculate the source rectangle for the character
           Rectangle sourceRect = new Rectangle(column * _charWidth, row * _charHeight, _charWidth, _charHeight);
           // Draw the character
-          spriteBatch.Draw(_fontTexture, drawPosition, sourceRect, color);
+          spriteBatch.Draw(
+            _fontTexture,
+            new Rectangle((int)drawPosition.X, (int)drawPosition.Y, _scale, _scale),
+            sourceRect,
+            color
+            );
           // Advance draw position to the right for the next character
-          drawPosition.X += _charWidth;
+          drawPosition.X += _scale;
         }
       }
     }
