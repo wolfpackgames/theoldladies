@@ -16,6 +16,7 @@ namespace SharedLib
     public event PlayerXWonHandler PlayerXWon;
     public event PlayerOWonHandler PlayerOWon;
     public event GameDrawHandler GameDraw;
+    public bool GamePlaying => !_gameOver;
 
     private enum GameState
     {
@@ -25,31 +26,28 @@ namespace SharedLib
       OWon,
       Won
     }
-    private List<SquareComponent> _squares = new();
+    private BoardGrid _grid;
     private GameFontComponent _gameFontComponent;
     private bool _xPlayer = true;
     private int[,] _gameBoard = new int[3, 3];
     private bool _gameOver = false;
 
-    private Rectangle _textBarArea;
+    private Texture2D _gameTexture;
+
+    int _height = 0;
+
 
     public TicTacToe()
     {
       Reset();
     }
 
-    public void Initialize(ContentManager content,Vector2 gridPosition,int squareSize,Rectangle textBarArea)
+    public void Initialize(ContentManager content, int scale)
     {
-      Texture2D _squareTexture = content.Load<Texture2D>("Square");
-      _textBarArea = textBarArea;
 
-      for (int column = 0; column < 3; column++)
-      {
-        for (int row = 0; row < 3; row++)
-        {
-          _squares.Add(new SquareComponent(_squareTexture, new Point(column, row),gridPosition, squareSize, squareSize));
-        }
-      }
+      _gameTexture = content.Load<Texture2D>("Tic-Tac-Toe");      
+
+      _grid = new BoardGrid(_gameTexture,scale / (64 * 3) );
 
       _gameFontComponent = new GameFontComponent(
                 content.Load<Texture2D>("Font"),
@@ -61,15 +59,17 @@ namespace SharedLib
                     "abcdefghijklmnopqrstuvwxyz".ToCharArray(),
                     "0123456789,<.>/?;:'\"[{]}`~".ToCharArray(),
                     "!@#$%^&*()_-=+\\| ".ToCharArray(),
-                }
+                },
+                 scale / 16
             );
+
+            _height = scale;
 
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-      _squares.ForEach(square => square.Draw(spriteBatch));
-
+      _grid.Draw(spriteBatch);
       string text = CheckWin(_xPlayer ? 1 : 2) switch
       {
         GameState.Draw => "Draw",
@@ -79,14 +79,13 @@ namespace SharedLib
         _ => throw new NotImplementedException()
       };
 
-      var textSize = text.Length * 16;
-      var restartTextSize = "Click to restart".Length * 16;
+      var textSize = text.Length * (_height / 16);
+      var restartTextSize = "Click to restart".Length * (_height / 16);
 
+      _gameFontComponent.Draw(spriteBatch, text, new Vector2(textSize / 2, 64 * 3 * (_height / (64 * 3))), Color.Black);
 
-      _gameFontComponent.Draw(spriteBatch, text, new Vector2((_textBarArea.Width / 2)-textSize / 2,_textBarArea.Y), Color.Black);
-
-      if(_gameOver)
-        _gameFontComponent.Draw(spriteBatch, "Click to restart", new Vector2((_textBarArea.Width / 2)-restartTextSize / 2,_textBarArea.Y + 16), Color.Red);
+      if (_gameOver)
+        _gameFontComponent.Draw(spriteBatch, "Click to restart", new Vector2(0, 64 * 3 * (_height / (64 * 3)) + (_height / 16)), Color.Red);
     }
 
     public void Reset()
@@ -96,7 +95,7 @@ namespace SharedLib
         _gameOver = false;
         _xPlayer = true;
         _gameBoard = new int[3, 3];
-        _squares.ForEach(square => square.Reset());
+        _grid.Reset();
       }
     }
 
@@ -107,49 +106,33 @@ namespace SharedLib
 
       if (selectedPosition != Point.Zero)
       {
-        // Iterate over the list of squares
-        foreach (SquareComponent square in _squares)
+        var (player, position) = _grid.Clicked(selectedPosition, _xPlayer ? PlayerEnum.X : PlayerEnum.O);
+        if (position == new Point(-1, -1))
+          return;
+
+        _gameBoard[position.X, position.Y] = _xPlayer ? 1 : 2;
+
+        var gameState = CheckWin(_xPlayer ? 1 : 2);
+        if (gameState == GameState.Playing)
         {
-          // Check if the mouse click occurred within the square
-          if (selectedPosition.X >= square.Position.X && selectedPosition.X <= square.Position.X + square.Position.Width &&
-              selectedPosition.Y >= square.Position.Y && selectedPosition.Y <= square.Position.Y + square.Position.Height &&
-              !square.IsClicked
-              )
+          _xPlayer = !_xPlayer;
+        }
+        else if (gameState == GameState.Draw)
+        {
+          _gameOver = true;
+          GameDraw?.Invoke();
+        }
+        else
+        {
+          _gameOver = true;
+          if (_xPlayer)
           {
-            square.Clicked(_xPlayer ? Color.Red : Color.Yellow);
-
-            // Mark the square with the current player's symbol if it's not already marked
-            if (_gameBoard[square.BoardPosition.X, square.BoardPosition.Y] == 0)
-            {
-              _gameBoard[square.BoardPosition.X, square.BoardPosition.Y] = _xPlayer ? 1 : 2;
-
-              var gameState = CheckWin(_xPlayer ? 1 : 2);
-              if (gameState == GameState.Playing)
-              {
-                _xPlayer = !_xPlayer;
-              }
-              else if (gameState == GameState.Draw)
-              {
-                _gameOver = true;
-                GameDraw?.Invoke();
-              }
-              else
-              {
-                _gameOver = true;
-                if (_xPlayer)
-                {
-                  PlayerXWon?.Invoke();
-                }
-                else
-                {
-                  PlayerOWon?.Invoke();
-                }
-              }
-
-              break;
-            }
+            PlayerXWon?.Invoke();
           }
-
+          else
+          {
+            PlayerOWon?.Invoke();
+          }
         }
       }
     }

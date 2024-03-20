@@ -69,8 +69,8 @@
         "--self-contained",
         "-p:AndroidSdkDirectory=${config:ANDROID_SDK_ROOT}",
         "-p:JavaSdkDirectory=${config:JAVA_HOME}",        
-        "-p:ApplicationVersion=5",
-        "-p:ApplicationDisplayVersion=1.2.3",
+        "-p:ApplicationVersion=${config:APK_VERSION}",
+        "-p:ApplicationDisplayVersion=${config:APK_DISPLAY_VERSION}",
         "${workspaceFolder}/Android/Android.csproj"
       ],
       "problemMatcher": "$msCompile",
@@ -145,11 +145,12 @@
         "-digestalg",
         "SHA-256",
         "-keystore",
-        ".\\theoldladies-release.keystore",
+        "${config:KEYSTORE}",
         "-signedjar",
-        ".\\Android\\bin\\Release\\net6.0-android\\android-x64\\theoldladies.aab",
-        ".\\Android\\bin\\Release\\net6.0-android\\android-x64\\Android.Android.aab",
-        "theoldladies"
+        "${config:AAB_FOLDER}\\io.github.paulushcgcj.theoldladies-${config:APK_VERSION}-${config:APK_DISPLAY_VERSION}.aab",
+        "${config:AAB_FOLDER}\\io.github.paulushcgcj.theoldladies.aab",        
+        "${config:KEYSTORE_ALIAS}",
+        "-storepass '${config:KEYSTORE_PASSWORD}'",
       ],
       "group": {
         "kind": "build",
@@ -157,7 +158,8 @@
       },
       "presentation": {
         "reveal": "always"
-      }
+      },
+      "dependsOn": "Publish Android"
     },
     {
       "label":"Clean",

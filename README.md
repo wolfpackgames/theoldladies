@@ -47,6 +47,6 @@ We would like to thank the following individuals and projects for their contribu
 ## Screenshots
 Here are some screenshots of The Old Ladies in action:
 
-![Screenshot 1](docs/screenshots/screenshot1.png)
-![Screenshot 2](docs/screenshots/screenshot2.png)
-![Screenshot 3](docs/screenshots/screenshot3.png)
+![Screenshot 1](docs/screenshots/Screenshot_1.png)
+![Screenshot 2](docs/screenshots/Screenshot_2.png)
+![Screenshot 3](docs/screenshots/Screenshot_3.png)
