@@ -24,7 +24,7 @@ jobs:
           echo "version-display=$VERSION_DISPLAY" >> $GITHUB_OUTPUT
 
           # Extract hidden version code from the release body secret <!--version-code:123--> comment
-          VERSION_CODE=$(echo "${{ github.event.release.body }}" | grep -oP '(?<=<!--version-code:)[^-->]+')          
+          VERSION_CODE=$(echo "${{ github.event.release.body }}" | grep version-code |grep -oP '\d+')
           echo "version-code=$VERSION_CODE" >> $GITHUB_OUTPUT
       
   build:
