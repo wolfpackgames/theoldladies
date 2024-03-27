@@ -19,17 +19,14 @@ jobs:
       - name: Extract Version Info
         id: version_info
         run: |
-          # Get the release data
-          RELEASE_DATA=$(curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                              -H "Accept: application/vnd.github+json" \
-                              "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.event.release.tag_name }}")
+          echo "Name: ${{ github.event.release.name }} Description: ${{ github.event.release.body }}"
           
           # Extract display version (tag name) and remove leading 'v'
-          DISPLAY_VERSION=$(echo "$RELEASE_DATA" | jq -r '.tag_name' | sed 's/^v//')         
+          DISPLAY_VERSION=$(echo "${{ github.event.release.name }}" | sed 's/^v//')         
           echo "version-display=${DISPLAY_VERSION}" >> $GITHUB_OUTPUT
           
           # Extract hidden version code from the release body
-          VERSION_CODE=$(echo "$RELEASE_DATA" | jq -r '.body' | grep -oP '(?<=<!--version-code:)[^-->]+')          
+          VERSION_CODE=$(echo "${{ github.event.release.body }}" | grep -oP '(?<=<!--version-code:)[^-->]+')          
           echo "version-code=$VERSION_CODE" >> $GITHUB_OUTPUT
       
   build:
