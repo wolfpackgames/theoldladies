@@ -35,7 +35,8 @@
       },
       "presentation": {
         "reveal": "always"
-      }
+      },
+      "dependsOn": "Clean"
     },
     {
       "label": "Build Android",
@@ -54,7 +55,8 @@
       },
       "presentation": {
         "reveal": "always"
-      }
+      },
+      "dependsOn": "Clean"
     },
     {
       "label": "Publish Android",
@@ -98,7 +100,8 @@
         "--self-contained",
         "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
       ],
-      "problemMatcher": "$msCompile"
+      "problemMatcher": "$msCompile",
+      "dependsOn": "Clean"
     },
     {
       "label": "Publish Linux",
@@ -115,7 +118,8 @@
         "--self-contained",
         "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
       ],
-      "problemMatcher": "$msCompile"
+      "problemMatcher": "$msCompile",
+      "dependsOn": "Clean"
     },
     {
       "label": "Publish MacOS",
@@ -132,7 +136,8 @@
         "--self-contained",
         "${workspaceFolder}/DesktopGL/DesktopGL.csproj"
       ],
-      "problemMatcher": "$msCompile"
+      "problemMatcher": "$msCompile",
+      "dependsOn": "Clean"
     },
     {
       "label": "Sign Jar",
@@ -167,6 +172,39 @@
       "command":"dotnet",
       "args":[
         "clean"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      },
+      "dependsOn": "Restore"
+    },
+    {
+      "label": "Restore",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "restore"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always"
+      },
+      "dependsOn": "Workload Restore"
+    },
+    {
+      "label": "Workload Restore",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "workload",
+        "restore"
       ],
       "group": {
         "kind": "build",
