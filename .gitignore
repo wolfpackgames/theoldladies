@@ -694,3 +694,4 @@ fabric.properties
 *.der
 Google.md
 .vscode/settings.json
+/dependencies/
