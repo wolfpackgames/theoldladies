@@ -11,34 +11,36 @@ namespace SharedLib
         private SpriteBatch _spriteBatch;
         private InputManager _inputManager;
         private TicTacToe _ticTacToe;
+        private IGameScreen _gameScreen;
 
-        public Game1()
+        public Game1(IGameScreen gameScreen)
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            if (!gameScreen.IsZero())
+            {
+                _graphics.PreferredBackBufferWidth = gameScreen.GetResolution().X;
+                _graphics.PreferredBackBufferHeight = gameScreen.GetResolution().Y;
+                _graphics.ApplyChanges();
+            }
+            else
+            {
+                gameScreen.SetResolution(new Point(_graphics.PreferredBackBufferHeight,_graphics.PreferredBackBufferWidth));
+            }
+
+
             _ticTacToe = new();
             _inputManager = new();
             _inputManager.PointSelected += OnPointSelected;
+            _gameScreen = gameScreen;
         }
 
         protected override void Initialize()
         {
             base.Initialize();
-            //2028 - 1014
-
-            float screenHeight = GraphicsDevice.Viewport.Height;
-            float screenWidth = GraphicsDevice.Viewport.Width;
-
-            float smallerReference = Math.Min(screenHeight, screenWidth);
-
-
-            Console.WriteLine($"Screen Height: {screenHeight}, Screen Width: {screenWidth}, Bigger Reference: {smallerReference}");
-            Console.WriteLine($"Scale Grid: {smallerReference / (64 * 3)}, Scale Font: {smallerReference / 16}");
-          
-            
-            _ticTacToe.Initialize(Content, (int)smallerReference);
+            _ticTacToe.Initialize(Content, _gameScreen, GraphicsDevice);
             _inputManager.Initialize();
         }
 
@@ -55,6 +57,7 @@ namespace SharedLib
 
         private void OnPointSelected(Point selectedPosition)
         {
+            Console.WriteLine($"Selected position {selectedPosition}");
             if (!_ticTacToe.GamePlaying)
                 _ticTacToe.Reset();
             else
